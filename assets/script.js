@@ -1,27 +1,61 @@
-function gameBoard() {
-  this.columns = 3;
-  this.rows = 3;
-  this.boardState = [];
+function GameBoard() {
+  const columns = 3;
+  const rows = 3;
+  const boardState = [];
 
   function createInitialBoard() {
-    for(let i = 0; i < this.rows; i++) {
+    for(let i = 0; i < rows; i++) {
       var column = [];
-      for (let n = 0; n < this.columns; n++) {
+      for (let n = 0; n < columns; n++) {
         column.push(0);
       }
 
-      this.boardState.push(column);
+      boardState.push(column);
     }
   }
 
   function markBox(row, column) {
-    this.boardState[row][column] = 1;
+    if (row < 0 || column < 0) {
+      console.error("Less than space.");
+      return;
+    }
+
+    if (row > 2 || column > 2) {
+      console.error("Exceeded space.");
+      return;
+    }
+    
+    if (boardState[row][column] === 1) {
+      console.error("Space already marked.");
+      return;
+    }
+
+
+    boardState[row][column] = 1;
+  }
+
+  function printBoardState() {
+    console.table(boardState);
   }
 
   createInitialBoard();
-  console.log(this.boardState);
-  markBox(0, 0);
-  console.log(this.boardState);
+  printBoardState();
+  var uno = Player("Uno"); 
+
+  var input = uno.getInput();
+  markBox(input.row, input.column);
+  printBoardState();
 };
 
-const game = gameBoard();
+function Player(name) {
+  const getInput = () => {
+    let row = Number(prompt("Row Number?"));
+    let column = Number(prompt("Column Number?"));
+
+    return {row, column};
+  }
+
+  return {getInput};
+}
+
+const game = GameBoard();
