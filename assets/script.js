@@ -57,7 +57,6 @@ function GameBoard() {
         boardState.forEach(row => {
           colNumbers.push(row[colNum]);
         });
-        console.log(colNumbers);
 
         if (threeInARow(colNumbers)) {
           return true;
@@ -87,7 +86,9 @@ function GameBoard() {
         return threeInARow(diagNumbers);
       }
     };
-    console.log(diagonalWin());
+
+    const win = [horizontalWin(), verticalWin(), diagonalWin()];
+    return win.includes(true);
   }
 
   // [0, 0, 0]
@@ -117,7 +118,8 @@ function Match() {
   gameBoard.markBox(0, 0, "cross");
   gameBoard.markBox(1, 1, "cross");
   gameBoard.markBox(2, 2, "cross");
-  gameBoard.checkWinCondition();
+  console.log(gameBoard.checkWinCondition());
+  gameBoard.printBoardState();
 }
 
 var match = Match();
