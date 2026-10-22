@@ -39,7 +39,17 @@ function GameBoard() {
   }
 
   function checkWinCondition() {
-    const horizontalWin = row => !row.includes(0) && row.every(val => val === row[0]);
+    const threeInARow = row => !row.includes(0) && row.every(val => val === row[0]);
+
+    const horizontalWin = () => {
+      boardState.forEach(row => {
+        if (threeInARow(row)) {
+          return true;
+        }
+        return false;
+      })
+    }
+
     const verticalWin = () => {
       var colNumbers = [];
       
@@ -49,7 +59,7 @@ function GameBoard() {
         });
         console.log(colNumbers);
 
-        if (horizontalWin(colNumbers)) {
+        if (threeInARow(colNumbers)) {
           return true;
         }
 
@@ -58,7 +68,26 @@ function GameBoard() {
       return false;
     }
 
-    console.log(verticalWin())
+    const diagonalWin = () => {
+      var diagNumbers = [];
+
+      diagNumbers.push(boardState[0][0]);
+      diagNumbers.push(boardState[1][1]);
+      diagNumbers.push(boardState[2][2]);
+
+      if (threeInARow(diagNumbers)) {
+        return true;
+      }
+
+      else {
+        diagNumbers.push(boardState[2][0]);
+        diagNumbers.push(boardState[1][1]);
+        diagNumbers.push(boardState[0][2]);
+
+        return threeInARow(diagNumbers);
+      }
+    };
+    console.log(diagonalWin());
   }
 
   // [0, 0, 0]
@@ -85,9 +114,9 @@ function Match() {
   var duo = Player("Duo");
 
   gameBoard.createInitialBoard();
-  gameBoard.markBox(0, 1, "cross");
+  gameBoard.markBox(0, 0, "cross");
   gameBoard.markBox(1, 1, "cross");
-  gameBoard.markBox(2, 1, "cross");
+  gameBoard.markBox(2, 2, "cross");
   gameBoard.checkWinCondition();
 }
 
