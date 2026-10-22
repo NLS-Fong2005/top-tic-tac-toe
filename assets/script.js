@@ -43,28 +43,16 @@ function GameBoard() {
 
     const horizontalWin = () => {
       boardState.forEach(row => {
-        if (threeInARow(row)) {
-          return true;
-        }
+        if (threeInARow(row)) return true;
         return false;
       })
     }
 
     const verticalWin = () => {
-      var colNumbers = [];
-      
-      for(let colNum = 0; colNum < 3; colNum++) {
-        boardState.forEach(row => {
-          colNumbers.push(row[colNum]);
-        });
-
-        if (threeInARow(colNumbers)) {
-          return true;
-        }
-
-        colNumbers = [];
+      for (var colNum = 0; colNum < 3; colNum++) {
+        if (threeInARow([0, 1, 2].map(i => boardState[i][colNum]))) return true;
+        return false;
       }
-      return false;
     }
 
     const diagonalWin = () => {
@@ -101,8 +89,8 @@ function Match() {
 
   gameBoard.createInitialBoard();
   gameBoard.markBox(0, 0, "cross");
-  gameBoard.markBox(1, 1, "cross");
-  gameBoard.markBox(2, 2, "cross");
+  gameBoard.markBox(0, 1, "cross");
+  gameBoard.markBox(0, 2, "cross");
   console.log(gameBoard.checkWinCondition());
   gameBoard.printBoardState();
 }
