@@ -68,24 +68,9 @@ function GameBoard() {
     }
 
     const diagonalWin = () => {
-      var diagNumbers = [];
-
-      diagNumbers.push(boardState[0][0]);
-      diagNumbers.push(boardState[1][1]);
-      diagNumbers.push(boardState[2][2]);
-
-      if (threeInARow(diagNumbers)) {
-        return true;
-      }
-
-      else {
-        diagNumbers.push(boardState[2][0]);
-        diagNumbers.push(boardState[1][1]);
-        diagNumbers.push(boardState[0][2]);
-
-        return threeInARow(diagNumbers);
-      }
-    };
+      threeInARow([0, 1, 2].map(i => boardState[i][i])) ||
+      threeInARow([0, 1, 2].map(i => boardState[i][2 - i]));
+    }
 
     const win = [horizontalWin(), verticalWin(), diagonalWin()];
     return win.includes(true);
