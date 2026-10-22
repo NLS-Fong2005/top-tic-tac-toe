@@ -14,7 +14,7 @@ function GameBoard() {
     }
   }
 
-  function markBox(row, column) {
+  function markBox(row, column, turn) {
     if (row < 0 || column < 0) {
       console.error("Less than space.");
       return;
@@ -31,26 +31,29 @@ function GameBoard() {
     }
 
 
-    boardState[row][column] = 1;
+    boardState[row][column] = (turn === "cross") ? "x" : "o";
   }
 
   function printBoardState() {
     console.table(boardState);
   }
 
-  createInitialBoard();
-  printBoardState();
-  var uno = Player("Uno"); 
+  function checkWinCondition() {
+    const horizontalWin = row => !row.includes(0) && row.every(val => val === row[0]);
 
-  var input = uno.getInput();
-  markBox(input.row, input.column);
-  printBoardState();
+    console.log(horizontalWin(["x", "x", "x"]));
+    console.log(horizontalWin(["x", "o", "x"]));
+    console.log(horizontalWin(["x", "x", "0"]));
+    console.log(horizontalWin([0, 0, 0])); 
+  }
+
+  return { createInitialBoard, markBox, printBoardState, checkWinCondition }
 };
 
 function Player(name) {
   const getInput = () => {
-    let row = Number(prompt("Row Number?"));
-    let column = Number(prompt("Column Number?"));
+    let row = Number(prompt(`${name}'s Turn: Row Number`));
+    let column = Number(prompt(`${name}'s turn: Column Number?`));
 
     return {row, column};
   }
@@ -58,4 +61,13 @@ function Player(name) {
   return {getInput};
 }
 
-const game = GameBoard();
+function Match() {
+  var gameBoard = GameBoard();
+  var uno = Player("Uno");
+  var duo = Player("Duo");
+
+  gameBoard.createInitialBoard();
+  gameBoard.checkWinCondition();
+}
+
+var match = Match();
