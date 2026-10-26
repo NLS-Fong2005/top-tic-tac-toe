@@ -14,23 +14,26 @@ function GameBoard() {
     }
   }
 
-  function markBox(row, column, turn) {
+  function boxIsValid(row, column) {
     if (row < 0 || column < 0) {
       console.error("Less than space.");
-      return;
+      return false;
     }
 
     if (row > 2 || column > 2) {
       console.error("Exceeded space.");
-      return;
+      return false;
     }
     
-    if (boardState[row][column] === 1) {
+    if (boardState[row][column] !== 0) {
       console.error("Space already marked.");
-      return;
+      return false;      
     }
 
+    return true;
+  }
 
+  function markBox(row, column, turn) {
     boardState[row][column] = (turn === "cross") ? "x" : "o";
   }
 
@@ -55,10 +58,8 @@ function GameBoard() {
       }
     }
 
-    const diagonalWin = () => {
-      threeInARow([0, 1, 2].map(i => boardState[i][i])) ||
-      threeInARow([0, 1, 2].map(i => boardState[i][2 - i]));
-    }
+    const diagonalWin = () => threeInARow([0, 1, 2].map(i => boardState[i][i])) || threeInARow([0, 1, 2].map(i => boardState[i][2 - i]));
+    
 
     const win = [horizontalWin(), verticalWin(), diagonalWin()];
     return win.includes(true);
@@ -68,7 +69,7 @@ function GameBoard() {
   // [0, 0, 0]
   // [0, 0, 0]
 
-  return { createInitialBoard, markBox, printBoardState, checkWinCondition }
+  return { createInitialBoard, boxIsValid, markBox, printBoardState, checkWinCondition }
 };
 
 function Player(name) {
@@ -79,19 +80,41 @@ function Player(name) {
     return {row, column};
   }
 
-  return {getInput};
+  return {name, getInput};
 }
 
 function Match() {
   var gameBoard = GameBoard();
-  var uno = Player("Uno");
-  var duo = Player("Duo");
+  var turnNumber = 0;
+  const playerOne = Player("Articuno");
+  const playerTwo = Player("Zapdos");
 
   gameBoard.createInitialBoard();
-  gameBoard.markBox(0, 0, "cross");
-  gameBoard.markBox(0, 1, "cross");
-  gameBoard.markBox(0, 2, "cross");
-  console.log(gameBoard.checkWinCondition());
+
+  while(!gameBoard.checkWinCondition()) {
+    if (turnNumber > 9) {
+      break;
+    }
+
+    turnNumber = ++turnNumber;
+    console.log(`Turn Number: ${turnNumber}`);
+    gameBoard.printBoardState();
+
+    var input = (turnNumber % 2 === 0) ? playerTwo.getInput() : playerOne.getInput();
+    var turn = (turnNumber % 2 === 0) ? "circle" : "cross";
+
+    if (gameBoard.boxIsValid(input.row, input.column, turn)) {
+      gameBoard.markBox(input.row, input.column, turn);
+    }
+
+    else {
+      turnNumber = --turnNumber;
+    }
+
+  }
+
+  const winner = (turnNumber % 2 === 0) ? playerTwo.name : playerOne.name; 
+  console.log(`Winner: ${winner}`);
   gameBoard.printBoardState();
 }
 
