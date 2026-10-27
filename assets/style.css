@@ -1,5 +1,31 @@
+/* Font: Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Theme: Tokyo Night */
+:root {
+  --background: #1a1b26;
+  --cell-background: #414868;
+  --border: #565f89;
+  --cell-hover: rgba(154, 165, 206, 0.2);
+
+  --text-main: #c0caf5;
+  --text-muted: #a9b1d6;
+  --title: #7aa2f7;
+
+  --player-x: #f7768e;
+  --player-o: #7dcfff;
+  --win: #9ece6a;
+  --draw: #e0af68;
+
+  --btn-primary: #bb9af7;
+  --btn-hover: #73dacb;
+  --btn-danger: #ff9e64;
+  --focus-glow: #2ac3de;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
 }
