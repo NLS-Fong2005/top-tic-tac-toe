@@ -21,20 +21,22 @@
   </div>
 
   <button command="show-modal" commandfor="playerCreator">Start Game</button>
-  
   <dialog id="playerCreator">
-    <form method="dialog" name="playerCreator">
-      <label for="playerOne">Player One Name</label>
-      <input type="text" name="playerOne" id="playerOne" required>
-      
-      <label for="playerTwo">Player Two Name</label>
-      <input type="text" name="playerTwo" id="playerTwo" required>
+    <div>
+      <form action="" method="dialog" name="playerCreator">
+        <label for="playerOne">Player One Name</label>
+        <input type="text" name="playerOne" id="playerOne" required>
+        
+        <label for="playerTwo">Player Two Name</label>
+        <input type="text" name="playerTwo" id="playerTwo" required>
 
-      <div class="buttonGroup">
-        <button>Start</button>
-        <button>Cancel</button>
-      </div>
-    </form>
+        <div class="buttonGroup">
+          <button value="save">Start</button>
+          <button value="cancel" formnovalidate>Cancel</button>
+        </div>
+      </form>
+    </div>
+    
   </dialog>
 </body>
 <footer>

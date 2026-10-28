@@ -77,8 +77,14 @@ body > button:hover {
 }
 
 dialog {
-  align-self: center;
-  justify-self: center;
+  margin: auto;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+dialog > div {
   height: 25vh;
   width: 25vw;
   padding: 2vw;
@@ -89,10 +95,6 @@ dialog {
   background-color: var(--background);
   border: 2px solid var(--border);
   color: var(--text-main);
-}
-
-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5); 
 }
 
 form {
