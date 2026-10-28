@@ -29,3 +29,30 @@
   box-sizing: border-box;
   font-family: "Inter", Arial, Helvetica, sans-serif;
 }
+
+body {
+  height: 100vh;
+  background-color: var(--background);
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+ height: 50vh; 
+ width: 50vh;
+ border: 2px solid var(--border);
+
+ display: grid;
+ grid-template: repeat(3, 1fr) / repeat(3, 1fr)
+}
+
+.cell {
+  min-height: 100%;
+  border: 2px solid var(--border);
+}
+
+.cell:hover {
+  cursor: pointer;
+  background-color: var(--cell-hover);
+}
