@@ -63,16 +63,75 @@ h1 {
   background-color: var(--cell-hover);
 }
 
-button {
-  background-color: var(--cell-background);
+body > button {
+  background-color: var(--btn-primary);
   border: 2px solid var(--border);
-  color: var(--text-main);
   font-size: larger;
   margin-top: 2vh;
   padding: 1vh;
   width: 25vh;
 }
 
-button:hover {
+body > button:hover {
   cursor: pointer;
+}
+
+dialog {
+  align-self: center;
+  justify-self: center;
+  height: 25vh;
+  width: 25vw;
+  padding: 2vw;
+
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--background);
+  border: 2px solid var(--border);
+  color: var(--text-main);
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  margin-bottom: 1vh;
+}
+
+input {
+  margin-bottom: 2vh;
+  padding: 5px;
+  background-color: var(--cell-background);
+  border: 2px solid var(--border);
+  color: var(--text-main);
+}
+
+input:focus {
+  outline: none;
+}
+
+.buttonGroup {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  gap: 3px;
+}
+
+.buttonGroup > button {
+  flex: 1;
+  background-color: var(--btn-primary);
+  border: var(--border);
+  padding: 5px;
+}
+
+.buttonGroup > button:hover {
+  background-color: var(--btn-hover);
 }
