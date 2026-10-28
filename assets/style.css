@@ -55,10 +55,24 @@ h1 {
 
 .cell {
   min-height: 100%;
-  border: 2px solid var(--border);
+  border: 5px solid var(--border);
 }
 
 .cell:hover {
   cursor: pointer;
   background-color: var(--cell-hover);
+}
+
+button {
+  background-color: var(--cell-background);
+  border: 2px solid var(--border);
+  color: var(--text-main);
+  font-size: larger;
+  margin-top: 2vh;
+  padding: 1vh;
+  width: 25vh;
+}
+
+button:hover {
+  cursor: pointer;
 }
