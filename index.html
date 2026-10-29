@@ -8,41 +8,55 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close,circle" />
 </head>
 <body>
-  <h1>Tic-Tac-Toe</h1>
-  <div class="board">
-    <div class="cell">
-     <span class="material-symbols-outlined cross">close</span> 
+  <div class="left-lane">
+    <h1>Player 1 Name</h1>
+    <h2>W:</h2>
+    <h2>L:</h2>
+  </div>
+  <div class="middle-lane">
+    <h1>Tic-Tac-Toe</h1>
+    <div class="board">
+      <div class="cell">
+      <span class="material-symbols-outlined cross">close</span> 
+      </div>
+      <div class="cell">
+        <span class="material-symbols-outlined circle">circle</span>
+      </div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
     </div>
-    <div class="cell">
-      <span class="material-symbols-outlined circle">circle</span>
-    </div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
+
+    <button command="show-modal" commandfor="playerCreator">Start Game</button>
+    <dialog id="playerCreator">
+      <div>
+        <form action="" method="dialog" name="playerCreator">
+          <label for="playerOne">Player One Name</label>
+          <input type="text" name="playerOne" id="playerOne" required>
+          
+          <label for="playerTwo">Player Two Name</label>
+          <input type="text" name="playerTwo" id="playerTwo" required>
+
+          <div class="button-group">
+            <button value="save">Start</button>
+            <button value="cancel" formnovalidate>Cancel</button>
+          </div>
+        </form>
+      </div>
+      
+    </dialog>
+
   </div>
 
-  <button command="show-modal" commandfor="playerCreator">Start Game</button>
-  <dialog id="playerCreator">
-    <div>
-      <form action="" method="dialog" name="playerCreator">
-        <label for="playerOne">Player One Name</label>
-        <input type="text" name="playerOne" id="playerOne" required>
-        
-        <label for="playerTwo">Player Two Name</label>
-        <input type="text" name="playerTwo" id="playerTwo" required>
-
-        <div class="buttonGroup">
-          <button value="save">Start</button>
-          <button value="cancel" formnovalidate>Cancel</button>
-        </div>
-      </form>
-    </div>
-    
-  </dialog>
+  <div class="right-lane">
+    <h1>Player 2 Name</h1>
+    <h2>W:</h2>
+    <h2>L:</h2>
+  </div>
 </body>
 <footer>
   <!-- * Make changes and re-implement after ui is finished -->

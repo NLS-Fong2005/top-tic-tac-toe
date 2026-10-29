@@ -33,8 +33,8 @@
 body {
   height: 100vh;
   background-color: var(--background);
-  display: flex; 
-  flex-flow: column wrap;
+  display: flex;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
 }
@@ -42,6 +42,45 @@ body {
 h1 {
   color: var(--title);
   margin-bottom: 2vh;
+}
+
+h2 {
+  color: var(--text-muted);
+}
+
+.left-lane {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: left;
+  padding: 20px;
+}
+
+.left-lane > h1 {
+  color: var(--player-x);
+}
+
+.middle-lane {
+  flex: 2;
+  display: flex; 
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-lane {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: right;
+  text-align: right;
+  padding: 20px;
+}
+
+.right-lane > h1 {
+  color: var(--player-o);
 }
 
 .board {
@@ -67,7 +106,7 @@ h1 {
   background-color: var(--cell-hover);
 }
 
-body > button {
+.middle-lane > button {
   background-color: var(--btn-primary);
   border: 2px solid var(--border);
   font-size: larger;
@@ -124,21 +163,21 @@ input:focus {
   outline: none;
 }
 
-.buttonGroup {
+.button-group {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
   gap: 3px;
 }
 
-.buttonGroup > button {
+.button-group > button {
   flex: 1;
   background-color: var(--btn-primary);
   border: var(--border);
   padding: 5px;
 }
 
-.buttonGroup > button:hover {
+.button-group > button:hover {
   background-color: var(--btn-hover);
 }
 
