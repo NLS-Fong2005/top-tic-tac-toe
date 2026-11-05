@@ -65,57 +65,79 @@ function GameBoard() {
     return win.includes(true);
   }
 
-  // [0, 0, 0]
-  // [0, 0, 0]
-  // [0, 0, 0]
-
   return { createInitialBoard, boxIsValid, markBox, printBoardState, checkWinCondition }
 };
 
 function Player(name) {
-  const getInput = () => {
-    let row = Number(prompt(`${name}'s Turn: Row Number`));
-    let column = Number(prompt(`${name}'s turn: Column Number?`));
+  let wins = 0;
+  let losses = 0;
 
-    return {row, column};
-  }
-
-  return {name, getInput};
+  return {name, wins, losses};
 }
 
-function Match() {
+function Match(playerOne, playerTwo) {
   var gameBoard = GameBoard();
-  var turnNumber = 0;
-  const playerOne = Player("Articuno");
-  const playerTwo = Player("Zapdos");
-
   gameBoard.createInitialBoard();
 
-  while(!gameBoard.checkWinCondition()) {
-    if (turnNumber > 9) {
-      break;
-    }
+  function setPlayerDetails(playerOne, playerTwo) {
+    const playerOneHeader = document.querySelector(".playerOne");
+    const playerTwoHeader = document.querySelector(".playerTwo");
 
-    turnNumber = ++turnNumber;
-    console.log(`Turn Number: ${turnNumber}`);
-    gameBoard.printBoardState();
+    playerOneHeader.textContent = playerOne.name;
+    playerTwoHeader.textContent = playerTwo.name;
 
-    var input = (turnNumber % 2 === 0) ? playerTwo.getInput() : playerOne.getInput();
-    var turn = (turnNumber % 2 === 0) ? "circle" : "cross";
+    const playerOneWins = document.querySelector(".playerOneWins");
+    const playerOneLosses = document.querySelector(".playerOneLosses");
+    const playerTwoWins = document.querySelector(".playerTwoWins");
+    const playerTwoLosses = document.querySelector(".playerTwoLosses");
 
-    if (gameBoard.boxIsValid(input.row, input.column, turn)) {
-      gameBoard.markBox(input.row, input.column, turn);
-    }
-
-    else {
-      turnNumber = --turnNumber;
-    }
-
+    playerOneWins.textContent = `W: ${playerOne.wins}`;
+    playerOneLosses.textContent = `L: ${playerOne.losses}`;
+    playerTwoWins.textContent = `W: ${playerTwo.wins}`;
+    playerTwoLosses.textContent = `L: ${playerTwo.losses}`;
   }
 
-  const winner = (turnNumber % 2 === 0) ? playerTwo.name : playerOne.name; 
-  console.log(`Winner: ${winner}`);
-  gameBoard.printBoardState();
+  function startMatch() {
+    setPlayerDetails(playerOne, playerTwo)
+  }
+  // while(!gameBoard.checkWinCondition()) {
+  //   if (turnNumber > 9) {
+  //     break;
+  //   }
+
+  //   turnNumber = ++turnNumber;
+  //   console.log(`Turn Number: ${turnNumber}`);
+  //   gameBoard.printBoardState();
+
+  //   var input = (turnNumber % 2 === 0) ? playerTwo.getInput() : playerOne.getInput();
+  //   var turn = (turnNumber % 2 === 0) ? "circle" : "cross";
+
+  //   if (gameBoard.boxIsValid(input.row, input.column, turn)) {
+  //     gameBoard.markBox(input.row, input.column, turn);
+  //   }
+
+  //   else {
+  //     turnNumber = --turnNumber;
+  //   }
+
+  // }
+
+  // const winner = (turnNumber % 2 === 0) ? playerTwo.name : playerOne.name; 
+  // console.log(`Winner: ${winner}`);
+  // gameBoard.printBoardState();
+  return {startMatch};
 }
 
-var match = Match();
+const dialog = document.querySelector("dialog");
+dialog.addEventListener('close', () => {
+  if (dialog.returnValue === 'save') {
+    let playerOneName = document.forms['playerCreator']['playerOne'].value;
+    let playerTwoName = document.forms['playerCreator']['playerTwo'].value;
+
+    let playerOne = new Player(playerOneName);
+    let playerTwo = new Player(playerTwoName);
+
+    var match = Match(playerOne, playerTwo);
+    match.startMatch();
+  }
+})
