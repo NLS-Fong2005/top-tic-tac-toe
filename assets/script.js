@@ -43,6 +43,7 @@ function GameBoard() {
   }
 
   function checkWinCondition() {
+    console.log("Entered");
     const threeInARow = row => !row.includes(0) && row.every(val => val === row[0]);
 
     const horizontalWin = () => {
@@ -131,12 +132,25 @@ function Match(playerOne, playerTwo) {
       child.addEventListener('click', () => {
         let turn = (turnNumber % 2 === 0) ? 'circle' : 'cross';
         let [row, column] = indexToCell[index];
-        
-        if (gameBoard.boxIsValid(row, column)) {
-          gameBoard.markBox(row, column, turn);
-          child.appendChild(createMark(turn));
-          turnNumber = ++turnNumber;
+
+        if (!gameBoard.boxIsValid(row, column)) {
+          return;
         }
+
+        gameBoard.markBox(row, column, turn);
+        child.appendChild(createMark(turn));
+
+        if (gameBoard.checkWinCondition()) {
+          const winner = (turn === 'cross') ? playerOne : playerTwo;
+          const loser = (turn !== 'cross') ? playerTwo : playerOne;
+
+          winner.wins++;
+          loser.losses++;
+
+          console.log(`Winner: ${winner.name}`);
+        }
+
+        turnNumber = ++turnNumber;
       })
     })
   }
