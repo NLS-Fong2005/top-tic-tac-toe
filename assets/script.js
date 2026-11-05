@@ -35,6 +35,7 @@ function GameBoard() {
 
   function markBox(row, column, turn) {
     boardState[row][column] = (turn === "cross") ? "x" : "o";
+    printBoardState();
   }
 
   function printBoardState() {
@@ -78,6 +79,17 @@ function Player(name) {
 function Match(playerOne, playerTwo) {
   var gameBoard = GameBoard();
   gameBoard.createInitialBoard();
+  const indexToCell = {
+    0 : [0, 0],
+    1 : [0, 1],
+    2 : [0, 2],
+    3 : [1, 0],
+    4 : [1, 1],
+    5 : [1, 2],
+    6 : [2, 0],
+    7 : [2, 1],
+    8 : [2, 2],
+  }
 
   function setPlayerDetails(playerOne, playerTwo) {
     const playerOneHeader = document.querySelector(".playerOne");
@@ -97,8 +109,36 @@ function Match(playerOne, playerTwo) {
     playerTwoLosses.textContent = `L: ${playerTwo.losses}`;
   }
 
+  function createMark(turn) {
+    const span = document.createElement('span');
+    if (turn === 'cross') {
+      span.classList.add("material-symbols-outlined", "cross");
+      span.textContent = "close";
+    } else {
+      span.classList.add("material-symbols-outlined", "circle");
+      span.textContent = "circle";
+    }
+
+    return span;
+  }
+
   function startMatch() {
-    setPlayerDetails(playerOne, playerTwo)
+    var turnNumber = 1;
+    setPlayerDetails(playerOne, playerTwo);
+
+    const board = document.querySelector(".board");
+    Array.from(board.children).forEach((child, index) => {
+      child.addEventListener('click', () => {
+        let turn = (turnNumber % 2 === 0) ? 'circle' : 'cross';
+        let [row, column] = indexToCell[index];
+        
+        if (gameBoard.boxIsValid(row, column)) {
+          gameBoard.markBox(row, column, turn);
+          child.appendChild(createMark(turn));
+          turnNumber = ++turnNumber;
+        }
+      })
+    })
   }
   // while(!gameBoard.checkWinCondition()) {
   //   if (turnNumber > 9) {
