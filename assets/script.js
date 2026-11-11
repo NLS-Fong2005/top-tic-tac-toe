@@ -169,7 +169,7 @@ function Match(playerOne, playerTwo) {
 
         if (gameBoard.checkWinCondition()) {
           const winner = (turn === 'cross') ? playerOne : playerTwo;
-          const loser = (turn !== 'cross') ? playerTwo : playerOne;
+          const loser = (turn !== 'cross') ? playerOne : playerTwo;
 
           winner.wins++;
           loser.losses++;
