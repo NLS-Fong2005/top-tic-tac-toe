@@ -1,7 +1,7 @@
 function GameBoard() {
   const columns = 3;
   const rows = 3;
-  const boardState = [];
+  let boardState = [];
 
   function createInitialBoard() {
     for(let i = 0; i < rows; i++) {
@@ -12,6 +12,17 @@ function GameBoard() {
 
       boardState.push(column);
     }
+  }
+
+  function clearBoardState() {
+    boardState = [];
+    const board = document.querySelector(".board");
+    Array.from(board.children).forEach((child, _) => {
+      child.classList = "";
+      child.textContent = "";
+
+      child.classList.add("cell");
+    })
   }
 
   function boxIsValid(row, column) {
@@ -67,7 +78,7 @@ function GameBoard() {
     return win.includes(true);
   }
 
-  return { createInitialBoard, boxIsValid, markBox, printBoardState, checkWinCondition }
+  return { createInitialBoard, clearBoardState, boxIsValid, markBox, printBoardState, checkWinCondition }
 };
 
 function Player(name) {
@@ -79,7 +90,6 @@ function Player(name) {
 
 function Match(playerOne, playerTwo) {
   var gameBoard = GameBoard();
-  gameBoard.createInitialBoard();
   const indexToCell = {
     0 : [0, 0],
     1 : [0, 1],
@@ -123,8 +133,25 @@ function Match(playerOne, playerTwo) {
     return span;
   }
 
+  function showGameOverDialog(winner) {
+    const dialog = document.getElementById("newGameDialog");
+    const winningHeader = document.querySelector(".winningHeader");
+    const button = document.querySelector(".newGameButton")
+
+    winningHeader.textContent = winner.name;
+
+    dialog.showModal();
+
+    button.addEventListener('click', () => {
+      dialog.close();
+      gameBoard.clearBoardState();
+      startMatch();
+    })
+  }
+
   function startMatch() {
     var turnNumber = 1;
+    gameBoard.createInitialBoard();
     setPlayerDetails(playerOne, playerTwo);
 
     const board = document.querySelector(".board");
@@ -148,37 +175,13 @@ function Match(playerOne, playerTwo) {
           loser.losses++;
 
           console.log(`Winner: ${winner.name}`);
+          showGameOverDialog(winner);
         }
 
         turnNumber = ++turnNumber;
       })
     })
   }
-  // while(!gameBoard.checkWinCondition()) {
-  //   if (turnNumber > 9) {
-  //     break;
-  //   }
-
-  //   turnNumber = ++turnNumber;
-  //   console.log(`Turn Number: ${turnNumber}`);
-  //   gameBoard.printBoardState();
-
-  //   var input = (turnNumber % 2 === 0) ? playerTwo.getInput() : playerOne.getInput();
-  //   var turn = (turnNumber % 2 === 0) ? "circle" : "cross";
-
-  //   if (gameBoard.boxIsValid(input.row, input.column, turn)) {
-  //     gameBoard.markBox(input.row, input.column, turn);
-  //   }
-
-  //   else {
-  //     turnNumber = --turnNumber;
-  //   }
-
-  // }
-
-  // const winner = (turnNumber % 2 === 0) ? playerTwo.name : playerOne.name; 
-  // console.log(`Winner: ${winner}`);
-  // gameBoard.printBoardState();
   return {startMatch};
 }
 

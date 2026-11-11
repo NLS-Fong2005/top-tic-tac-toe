@@ -84,12 +84,12 @@ h2 {
 }
 
 .board {
- height: 50vh; 
- width: 50vh;
- border: 2px solid var(--border);
+  height: 50vh; 
+  width: 50vh;
+  border: 2px solid var(--border);
 
- display: grid;
- grid-template: repeat(3, 1fr) / repeat(3, 1fr)
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr)
 }
 
 .cell {
@@ -145,6 +145,19 @@ form {
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+}
+
+#newGameDialog > div {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.newGameButton {
+  background-color: var(--btn-primary);
+  border: var(--border);
+  padding: 5px;
 }
 
 label {
